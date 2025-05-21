@@ -29,6 +29,9 @@ namespace ProductsCrudApp.ResponseRequest
 
         [EnumMember(Value = "INVALID_OPERATION")]
         INVALID_OPERATION,
+
+        [EnumMember(Value = "INTERNAL_ERROR")]
+        INTERNAL_ERROR,
     }
 }
 

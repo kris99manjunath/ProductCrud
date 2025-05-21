@@ -12,7 +12,6 @@ namespace ProductsCrudApp.Controllers;
 [Route("[controller]")]
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 [ProducesResponseType(typeof(ErrorResponseRequest), StatusCodes.Status400BadRequest)]
-
 public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _products;

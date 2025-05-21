@@ -17,12 +17,12 @@ namespace ProductsCrudApp.Validators
                 if (product.StockAvailable < quantity)
                 {
                     var response = new ErrorResponseRequest(
-                        ErrorCode.INVALID_OPERATION, 
+                        ErrorCode.INVALID_OPERATION,
                         $"Cannot decrement by {quantity} as only {product.StockAvailable} quantity available.");
                     context.Result = new BadRequestObjectResult
                     (response);
                     return;
-                }                
+                }
             }
 
             await next();

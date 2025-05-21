@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductsCrudApp.Repository
 {
-    public class SqlProductRepository: IProductRepository
+    public class SqlProductRepository : IProductRepository
     {
         private readonly ProductDbContext _context;
 

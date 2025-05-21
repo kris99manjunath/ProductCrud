@@ -102,7 +102,6 @@ namespace ProductCrud.Test.ControllerTest
         [Test]
         public async Task GetById_EntityMissing_Returns500OrHandled()
         {
-            // Simulating missing entity in HttpContext (i.e., validator failed to attach it)
             _controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
 
             Assert.ThrowsAsync<NullReferenceException>(async () => await _controller.GetById(1));

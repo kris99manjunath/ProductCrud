@@ -20,7 +20,6 @@ namespace ProductsCrudApp.Tests.Repositories
 
             _context = new ProductDbContext(options);
 
-            // Seed some test data
             _context.Products.Add(new Product { ProductId = 1, Name = "Test Product", StockAvailable = 10 });
             _context.SaveChanges();
 

@@ -1,4 +1,6 @@
-﻿namespace ProductsCrudApp.Middlewares
+﻿using ProductsCrudApp.ResponseRequest;
+
+namespace ProductsCrudApp.Middlewares
 {
     public class ExceptionHandlingMiddleware
     {
@@ -25,11 +27,8 @@
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
-                var response = new
-                {
-                    Message = "An unexpected error occurred.",
-                    Details = _env.IsDevelopment() ? ex.Message : "Contact Admin"
-                };
+                var response = new ErrorResponseRequest(ErrorCode.INTERNAL_ERROR,
+                    "An unexpected error occurred." + (_env.IsDevelopment() ? ex.Message : "Contact Admin"));
 
                 await context.Response.WriteAsJsonAsync(response);
             }

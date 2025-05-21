@@ -23,13 +23,14 @@ namespace ProductsCrudApp.Validators
                 var product = await _product.GetProductByIdAsync(id);
                 if (product == null)
                 {
-                    var response = new ErrorResponseRequest(ErrorCode.NOT_FOUND, $"Product with ID {id} not found.");
+                    var response = new ErrorResponseRequest(ErrorCode.NOT_FOUND,
+                        $"Product with ID {id} not found.");
                     context.Result = new NotFoundObjectResult(response);
                     return;
                 }
                 context.HttpContext.SetEntity(product);
             }
-           
+
             await next();
         }
     }
