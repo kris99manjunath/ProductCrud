@@ -1,5 +1,5 @@
 # ProductCrud
-This is REST API project created using Dotnet, MySql, Entityframework for creating and managing products
+This is REST API project created using Dotnet, MySql, Entityframework, Nunit, Moq for creating and managing products
 
 ## Prerequisite:
 1) Dotnet(net8.0)
