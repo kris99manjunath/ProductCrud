@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsCrudApp", "ProductsCrudApp\ProductsCrudApp.csproj", "{D16025F2-2306-4DB2-BBCE-122A49DD5D38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCrud.Test", "ProductCrud.Test\ProductCrud.Test.csproj", "{CE23CE67-5B15-46DB-9106-A224B186C566}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D16025F2-2306-4DB2-BBCE-122A49DD5D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D16025F2-2306-4DB2-BBCE-122A49DD5D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D16025F2-2306-4DB2-BBCE-122A49DD5D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D16025F2-2306-4DB2-BBCE-122A49DD5D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE23CE67-5B15-46DB-9106-A224B186C566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE23CE67-5B15-46DB-9106-A224B186C566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE23CE67-5B15-46DB-9106-A224B186C566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE23CE67-5B15-46DB-9106-A224B186C566}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98F3CA0A-373F-4E5F-A9C0-85C21A72915E}
+	EndGlobalSection
+EndGlobal

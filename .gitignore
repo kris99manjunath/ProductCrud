@@ -1,0 +1,34 @@
+# Build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Build logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+.nuget/
+
+# Rider/JetBrains
+.idea/
+
+# Dotnet environment
+.env
+*.db
+
+# Others
+*.vs/
