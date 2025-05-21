@@ -17,16 +17,17 @@ This is REST API project created using Dotnet, MySql, Entityframework for creati
 ## Overview of implementation
 
 <ul> 
-  <li> It exposes 7 end points[create,put ,getbyId ,getall, delete, addStocks, decreaseStocks] </li>
-  <li> There is middleware to handle all the exceptions globally and return 500 Bad response in any such case. It returns the actual error if dev env else logs the error </li>
+  <li> It exposes 7 end points[create,put ,getbyId ,getall, delete, addStocks, decreaseStocks]. </li>
+  <li> There is middleware to handle all the exceptions globally and return 500 Bad response in any such case. It returns the actual error if dev env else logs the error. </li>
   <li> Uses Multiple DataAnnotations Validators and Custom made validators to  validate data[PositiveNumberAttributeValidator, KeyNotFoundValidatior, StockLessThanZeroValidator]. </li>
-  <li> Validation for Name[required], StockAvailable[required] and should be >= 0, price should be greater than 0.01, description is optional </li>
+  <li> Validation is done for the following: Name[required], StockAvailable and should be >= 0, price should be greater than 0.01, description is optional </li>
   <li> DTO class is used to processing the requests. </li>
   <li> KeyNotFoundValidatior and StockLessThanZeroValidator are used so that no check is needed during performing the operation and can be made generic and extended if needed for other Controllers. Since KeyNotFoundValidatior validator has to call getProductById() the data is stored in context object to avoid redundant calls. </li>
+  <li> PositiveNumberAttributeValidation is done so that when incrementing or decrementing the value is intact and can be reused on all types. </li>
   <li> Uses Extension Menthods to add functionality for existing classes which helps in writing cleaner code also to avoid repetition of code. </li>
-  <li> Uses a ErrorResponseRequest Object to send error in a particular format </li>
-  <li> Uses Dependency Injection and Repository pattern to access data </li>
-  <li> Uses SeriLog to log any exceptions </li>
-  <li> Has a test project which has unit tests for the controller as well as the SqlRepository </li>
+  <li> Uses a ErrorResponseRequest Object to send errors/validation issue in a particular format. </li>
+  <li> Uses Dependency Injection and Repository pattern for accessing the data. </li>
+  <li> Uses SeriLog to log so that can also be configured for database logging in future. </li>
+  <li> Has a test project which has unit tests for the controller as well as the SqlRepository. </li>
   <li> To generate 6-digit collision free Id, it is generated in mysql using id auto increment and the start value is set to 100000 so it is 6 digits. </li>
 </ul>
