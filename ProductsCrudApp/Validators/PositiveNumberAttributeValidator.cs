@@ -2,9 +2,9 @@
 
 namespace ProductsCrudApp.Validators
 {
-    public class PositiveNumberAttributeValidation : ValidationAttribute
+    public class PositiveNumberAttributeValidator : ValidationAttribute
     {
-        public PositiveNumberAttributeValidation() : base("The value must be greater than 0.")
+        public PositiveNumberAttributeValidator() : base("The value must be greater than 0.")
         {
         }
 

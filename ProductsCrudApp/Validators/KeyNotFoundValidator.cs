@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using ProductsCrudApp.Repository;
 using ProductsCrudApp.ExtensionMethod;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using ProductsCrudApp.ResponseRequest;
+using ProductsCrudApp.Models.ResponseRequest;
 
 namespace ProductsCrudApp.Validators
 {
-    public class KeyNotFoundAttributeValidator : ActionFilterAttribute
+    public class KeyNotFoundValidator : ActionFilterAttribute
     {
         private readonly IProductRepository _product;
 
-        public KeyNotFoundAttributeValidator(IProductRepository repository)
+        public KeyNotFoundValidator(IProductRepository repository)
         {
             _product = repository;
         }
@@ -23,7 +23,7 @@ namespace ProductsCrudApp.Validators
                 var product = await _product.GetProductByIdAsync(id);
                 if (product == null)
                 {
-                    var response = new ErrorResponseRequest(ErrorCode.NOT_FOUND,
+                    var response = new ErrorResponse(ErrorCode.NOT_FOUND,
                         $"Product with ID {id} not found.");
                     context.Result = new NotFoundObjectResult(response);
                     return;

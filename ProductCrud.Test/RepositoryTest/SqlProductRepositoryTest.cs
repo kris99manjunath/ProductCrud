@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Microsoft.EntityFrameworkCore;
 using ProductsCrudApp.Repository;
-using ProductsCrudApp.DTO;
+using ProductsCrudApp.Models.ResponseRequest;
 
 namespace ProductsCrudApp.Tests.Repositories
 {
@@ -53,7 +53,7 @@ namespace ProductsCrudApp.Tests.Repositories
         [Test]
         public async Task AddProductAsync()
         {
-            var dto = new ProductInputDto { Name = "New Product", StockAvailable = 5 };
+            var dto = new ProductRequest { Name = "New Product", StockAvailable = 5 };
 
             var result = await _repository.AddProductAsync(dto);
 
@@ -65,7 +65,7 @@ namespace ProductsCrudApp.Tests.Repositories
         public async Task UpdateProductAsync()
         {
             var product = await _repository.GetProductByIdAsync(1);
-            var dto = new ProductInputDto { Name = "Updated", StockAvailable = 20 };
+            var dto = new ProductRequest { Name = "Updated", StockAvailable = 20 };
 
             var updated = await _repository.UpdateProductAsync(product!, dto);
 

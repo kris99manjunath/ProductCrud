@@ -1,10 +1,10 @@
-﻿using ProductsCrudApp.DTO;
+﻿using ProductsCrudApp.Models.ResponseRequest;
 
 namespace ProductsCrudApp.ExtensionMethod
 {
     public static class ProductExtensions
     {
-        public static void UpdateProduct(this Product product, ProductInputDto productDto)
+        public static void UpdateProduct(this Product product, ProductRequest productDto)
         {
             product.Name = productDto.Name;
             product.Description = productDto.Description;

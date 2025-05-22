@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 using ProductsCrudApp.Controllers;
-using ProductsCrudApp.DTO;
 using ProductsCrudApp.ExtensionMethod;
+using ProductsCrudApp.Models.ResponseRequest;
 using ProductsCrudApp.Repository;
 using ProductsCrudApp.Validators;
 
@@ -26,8 +26,8 @@ namespace ProductCrud.Test.ControllerTest
             _services = new ServiceCollection();
             _services.AddScoped<IProductRepository>(_ => _repoMock.Object);
 
-            _services.AddScoped<KeyNotFoundAttributeValidator>();
-            _services.AddScoped<StockAvailbleLessThanZeroValidator>();
+            _services.AddScoped<KeyNotFoundValidator>();
+            _services.AddScoped<InventoryUnderflowValidator>();
 
             var serviceProvider = _services.BuildServiceProvider();
             _controller = new ProductsController(_repoMock.Object, Mock.Of<ILogger<ProductsController>>())
@@ -42,7 +42,7 @@ namespace ProductCrud.Test.ControllerTest
         [Test]
         public async Task Create_ValidDto_ReturnsCreated()
         {
-            var dto = new ProductInputDto { Name = "New", StockAvailable = 5 };
+            var dto = new ProductRequest { Name = "New", StockAvailable = 5 };
             var created = new Product { ProductId = 1, Name = "New", StockAvailable = 5 };
 
             _repoMock.Setup(r => r.AddProductAsync(dto)).ReturnsAsync(created);
@@ -111,7 +111,7 @@ namespace ProductCrud.Test.ControllerTest
         public async Task Update_ValidDto_ReturnsUpdatedProduct()
         {
             var original = new Product { ProductId = 1, Name = "Old" };
-            var dto = new ProductInputDto { Name = "New", StockAvailable = 5 };
+            var dto = new ProductRequest { Name = "New", StockAvailable = 5 };
             var updated = new Product { ProductId = 1, Name = "New", StockAvailable = 5 };
 
             SetHttpContextWithProduct(original);
@@ -126,7 +126,7 @@ namespace ProductCrud.Test.ControllerTest
         [Test]
         public async Task Update_EntityMissing_Throws()
         {
-            var dto = new ProductInputDto { Name = "Update", StockAvailable = 2 };
+            var dto = new ProductRequest { Name = "Update", StockAvailable = 2 };
             _controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
 
             Assert.ThrowsAsync<NullReferenceException>(async () => await _controller.Update(1, dto));

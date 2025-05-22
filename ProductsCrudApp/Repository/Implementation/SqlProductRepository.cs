@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductsCrudApp.DTO;
 using ProductsCrudApp.ExtensionMethod;
+using ProductsCrudApp.Models.ResponseRequest;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace ProductsCrudApp.Repository
             return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
         }
 
-        public async Task<Product> AddProductAsync(ProductInputDto productDto)
+        public async Task<Product> AddProductAsync(ProductRequest productDto)
         {
             var product = productDto.ToProduct();
             _context.Products.Add(product);
@@ -34,7 +34,7 @@ namespace ProductsCrudApp.Repository
             return product;
         }
 
-        public async Task<Product> UpdateProductAsync(Product product, ProductInputDto productDto)
+        public async Task<Product> UpdateProductAsync(Product product, ProductRequest productDto)
         {
             product.UpdateProduct(productDto);
             await _context.SaveChangesAsync();

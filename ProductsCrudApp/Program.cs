@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductsCrudApp.Middlewares;
+using ProductsCrudApp.Models.ResponseRequest;
 using ProductsCrudApp.Repository;
-using ProductsCrudApp.ResponseRequest;
 using ProductsCrudApp.Validators;
 using Serilog;
 using System.Configuration;
@@ -21,8 +21,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-builder.Services.AddScoped<KeyNotFoundAttributeValidator>();
-builder.Services.AddScoped<StockAvailbleLessThanZeroValidator>();
+builder.Services.AddScoped<KeyNotFoundValidator>();
+builder.Services.AddScoped<InventoryOverflowValidator>();
+builder.Services.AddScoped<InventoryUnderflowValidator>();
 builder.Services.AddScoped<IProductRepository, SqlProductRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -37,7 +38,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
                 kvp => kvp.Value?.Errors.Select(e => e.ErrorMessage).ToArray()
             );
 
-        var response = new ErrorResponseRequest(ErrorCode.VALIDATION_ERROR, "Validation failed", errors);
+        var response = new ErrorResponse(ErrorCode.VALIDATION_ERROR, "Validation failed", errors);
 
         return new BadRequestObjectResult(response);
     };

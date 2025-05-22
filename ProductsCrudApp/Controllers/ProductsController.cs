@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProductsCrudApp.DTO;
 using ProductsCrudApp.ExtensionMethod;
+using ProductsCrudApp.Models.ResponseRequest;
 using ProductsCrudApp.Repository;
-using ProductsCrudApp.ResponseRequest;
 using ProductsCrudApp.Validators;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,7 +10,7 @@ namespace ProductsCrudApp.Controllers;
 [ApiController]
 [Route("[controller]")]
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-[ProducesResponseType(typeof(ErrorResponseRequest), StatusCodes.Status400BadRequest)]
+[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
 public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _products;
@@ -25,7 +24,7 @@ public class ProductsController : ControllerBase
 
     [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
     [HttpPost]
-    public async Task<IActionResult> Create(ProductInputDto product)
+    public async Task<IActionResult> Create(ProductRequest product)
     {
         var savedProduct = await _products.AddProductAsync(product);
         return CreatedAtAction(nameof(GetById), new { id = savedProduct.ProductId }, savedProduct);
@@ -40,7 +39,7 @@ public class ProductsController : ControllerBase
     }
 
     [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
-    [ServiceFilter(typeof(KeyNotFoundAttributeValidator))]
+    [ServiceFilter(typeof(KeyNotFoundValidator))]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -50,7 +49,7 @@ public class ProductsController : ControllerBase
 
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpDelete("{id}")]
-    [ServiceFilter(typeof(KeyNotFoundAttributeValidator))]
+    [ServiceFilter(typeof(KeyNotFoundValidator))]
     public async Task<IActionResult> Delete(int id)
     {
         var product = HttpContext.GetEntity();
@@ -60,8 +59,8 @@ public class ProductsController : ControllerBase
 
     [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
     [HttpPut("{id}")]
-    [ServiceFilter(typeof(KeyNotFoundAttributeValidator))]
-    public async Task<IActionResult> Update(int id, ProductInputDto updatedProductDto)
+    [ServiceFilter(typeof(KeyNotFoundValidator))]
+    public async Task<IActionResult> Update(int id, ProductRequest updatedProductDto)
     {
         var product = HttpContext.GetEntity();
         return Ok(await _products.UpdateProductAsync(product, updatedProductDto));
@@ -69,9 +68,9 @@ public class ProductsController : ControllerBase
 
     [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
     [HttpPut("decrement-stock/{id}/{quantity}")]
-    [ServiceFilter(typeof(KeyNotFoundAttributeValidator))]
-    [ServiceFilter(typeof(StockAvailbleLessThanZeroValidator))]
-    public async Task<IActionResult> DecrementStock(int id, [PositiveNumberAttributeValidation] int quantity)
+    [ServiceFilter(typeof(KeyNotFoundValidator))]
+    [ServiceFilter(typeof(InventoryUnderflowValidator))]
+    public async Task<IActionResult> DecrementStock(int id, [PositiveNumberAttributeValidator] int quantity)
     {
         var product = HttpContext.GetEntity();
         return Ok(await _products.DecrementStockAsync(product, quantity));
@@ -79,8 +78,9 @@ public class ProductsController : ControllerBase
 
     [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
     [HttpPut("add-to-stock/{id}/{quantity}")]
-    [ServiceFilter(typeof(KeyNotFoundAttributeValidator))]
-    public async Task<IActionResult> AddToStock(int id, [PositiveNumberAttributeValidation] int quantity)
+    [ServiceFilter(typeof(KeyNotFoundValidator))]
+    [ServiceFilter(typeof(InventoryOverflowValidator))]
+    public async Task<IActionResult> AddToStock(int id, [PositiveNumberAttributeValidator] int quantity)
     {
         var product = HttpContext.GetEntity();
         return Ok(await _products.AddToStockAsync(product, quantity));

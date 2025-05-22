@@ -1,16 +1,15 @@
-﻿
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace ProductsCrudApp.ResponseRequest
+namespace ProductsCrudApp.Models.ResponseRequest
 {
-    public class ErrorResponseRequest
+    public class ErrorResponse
     {
         public ErrorCode ErrorCode { get; protected set; }
         public string Message { get; protected set; }
         public Dictionary<string, string[]> Errors { get; protected set; }
 
-        public ErrorResponseRequest(ErrorCode errorCode, string message, Dictionary<string, string[]> errors = null)
+        public ErrorResponse(ErrorCode errorCode, string message, Dictionary<string, string[]> errors = null)
         {
             ErrorCode = errorCode;
             Message = message;

@@ -1,4 +1,4 @@
-﻿using ProductsCrudApp.ResponseRequest;
+﻿using ProductsCrudApp.Models.ResponseRequest;
 
 namespace ProductsCrudApp.Middlewares
 {
@@ -27,7 +27,7 @@ namespace ProductsCrudApp.Middlewares
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
-                var response = new ErrorResponseRequest(ErrorCode.INTERNAL_ERROR,
+                var response = new ErrorResponse(ErrorCode.INTERNAL_ERROR,
                     "An unexpected error occurred." + (_env.IsDevelopment() ? ex.Message : "Contact Admin"));
 
                 await context.Response.WriteAsJsonAsync(response);

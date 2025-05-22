@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductsCrudApp.DTO
+namespace ProductsCrudApp.Models.ResponseRequest
 {
-    public class ProductInputDto
+    public class ProductRequest
     {
         [Required]
         public required string Name { get; set; }
